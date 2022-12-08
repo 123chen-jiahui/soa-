@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/js/bootstrap.js'
 
 Vue.config.productionTip = false
+require('./mock')
 
 new Vue({
   router,

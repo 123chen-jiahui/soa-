@@ -13,7 +13,7 @@
           <span>Organizator: {{Organization}}</span>
         </div>
         <div class="class-day">
-          <div><router-link to="/projects/123" class="btn_01" style="text-decoration: none;">Donate</router-link></div>
+          <div><router-link to="/projects/id_11" class="btn_01" style="text-decoration: none;">Donate</router-link></div>
         </div>
       </div>
     </div>
@@ -29,11 +29,6 @@ export default {
       console.log('hello wold')
     }
   },
-  // computed: {
-  //   ImgUrl: function() {
-  //     return require('../assert')
-  //   }
-  // }
 }
 </script>
 
