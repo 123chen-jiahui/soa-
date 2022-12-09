@@ -63,24 +63,18 @@
                 </div>
             </div>
         </div>
+        <section class="about-area1 section-padding">
         <div class="class-offer-area fix">
             <div class="container-fluid p-0">
                 <div class="class-offer-active row">
-                    <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="col-lg-4 col-md-6 col-sm-6" v-for="(item, index) in Projects" :key="index">
                         <!-- Single -->
-                        <ProgramPreview ImgUrl="https://meeting-nature.oss-cn-shanghai.aliyuncs.com/class-img1.jpg" Describe="describe" ProjectName="Meeting Nature" Organization="TJU" />
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <!-- Single -->
-                        <ProgramPreview ImgUrl="https://meeting-nature.oss-cn-shanghai.aliyuncs.com/class-img2.jpg" Describe="describe" ProjectName="Meeting Nature" Organization="TJU" />
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <!-- Single -->
-                        <ProgramPreview ImgUrl="https://meeting-nature.oss-cn-shanghai.aliyuncs.com/class-img3.jpg" Describe="describe" ProjectName="Meeting Nature" Organization="TJU" />
+                        <ProgramPreview :Id=item._id :ImgUrls=item.imgUrls :Describe=item.describe :ProjectName=item.projectName :Organization=item.organization />
                     </div>
                 </div>
             </div>
         </div>
+    </section>
     </main>
   </div>
 </template>
@@ -88,10 +82,28 @@
 <script>
 import "animate.css";
 import ProgramPreview from '../components/programPreview.vue'
+import axios from 'axios';
 export default {
   name: 'Index',
   components: {
     'ProgramPreview': ProgramPreview
+  },
+  data() {
+    return {
+        Projects: []
+    }
+  },
+  mounted() {
+    const outerthis = this
+    axios({
+        method: 'get',
+        url: '/test/project-microservice/project/random'
+    }).then(function(response) {
+        console.log(response.data)
+        outerthis.Projects = response.data
+    }).catch(function(error) {
+        console.log(error)
+    })
   }
 }
 </script>

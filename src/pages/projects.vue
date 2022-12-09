@@ -72,17 +72,8 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-6">
-              <ProgramPreview ImgUrl="https://meeting-nature.oss-cn-shanghai.aliyuncs.com/class-img1.jpg" Describe="describe" ProjectName="Meeting Nature" Organization="TJU" />
-            </div>
-            <div class="col-lg-6 col-md-6 col-sm-6">
-              <ProgramPreview ImgUrl="https://meeting-nature.oss-cn-shanghai.aliyuncs.com/class-img2.jpg" Describe="describe" ProjectName="Meeting Nature" Organization="TJU" />
-            </div>
-            <div class="col-lg-6 col-md-6 col-sm-6">
-              <ProgramPreview ImgUrl="https://meeting-nature.oss-cn-shanghai.aliyuncs.com/class-img3.jpg" Describe="describe" ProjectName="Meeting Nature" Organization="TJU" />
-            </div>
-            <div class="col-lg-6 col-md-6 col-sm-6">
-              <ProgramPreview ImgUrl="https://meeting-nature.oss-cn-shanghai.aliyuncs.com/class-img1.jpg" Describe="describe" ProjectName="Meeting Nature" Organization="TJU" />
+            <div class="col-lg-6 col-md-6 col-sm-6" v-for="(item, index) in Projects" :key="index">
+              <ProgramPreview :Id=item._id :ImgUrls=item.imgUrls :Describe=item.describe :ProjectName=item.projectName :Organization=item.organization />
             </div>
           </div>
         </div>
@@ -92,11 +83,32 @@
 </template>
 
 <script>
+import axios from 'axios'
 import ProgramPreview from '../components/programPreview.vue'
 export default {
   name: 'Projects',
   components: {
     'ProgramPreview': ProgramPreview
+  },
+  data() {
+    return {
+      Projects: []
+    }
+  },
+  mounted() {
+    const outerthis = this
+    axios({
+      method: 'get',
+      url: '/test/project-microservice/project',
+      params: {
+        page: '1'
+      }
+    }).then(function(response) {
+      console.log(response.data)
+      outerthis.Projects = response.data
+    }).catch(function(error) {
+      console.log(error)
+    })
   }
 }
 </script>
