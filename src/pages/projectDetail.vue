@@ -75,6 +75,14 @@
                 </el-carousel-item>
               </el-carousel>
 
+              <el-dialog :visible.sync="centerDialogVisible" width="35%" center>
+                <Donate />
+                <span slot="footer" class="dialog-footer">
+                  <el-button @click="centerDialogVisible = false">Cancle</el-button>
+                  <el-button type="primary" @click="centerDialogVisible = false">Donate</el-button>
+                </span>
+              </el-dialog>
+
             </div>
             <div class="offset-xl-1 col-xxl-5 col-xl-5 col-lg-6 col-md-6">
               <div class="about-caption about-caption1">
@@ -84,8 +92,8 @@
                   <h2>{{ Detail.projectName }}</h2>
                   <p class="mb-30">{{ Detail.describe }}</p>
                   <div class="double-btn d-flex flex-wrap">
-                    <router-link to="/index" style="text-decoration: none;" class="btn_01 mr-15">Donate
-                      Now</router-link>
+                    <div class="btn_01 mr-15" @click="centerDialogVisible = true">Donate
+                      Now</div>
                     <router-link to="/index" style="text-decoration: none;" class="border-btn">Follow</router-link>
                   </div>
                 </div>
@@ -95,32 +103,6 @@
           <h2>Announcements</h2>
           <Announcement :Announcements=Announcements />
 
-          <div class="col-lg-5">
-            <form action="#" class="bg-white p-5 rounded donation-form animate__animated animate__fadeInUp">
-              <h3>Quick Donation Form</h3>
-              <div class="form-field mb-3">
-                <label for="amount-1" class="amount js-amount" data-value="1.00">
-                  <input type="radio" id="amount-1" name="radio-amount" checked="true">
-                  <span>￥1</span>
-                </label>
-
-                <label for="amount-2" class="amount js-amount" data-value="5.00">
-                  <input type="radio" id="amount-2" name="radio-amount">
-                  <span>￥5</span>
-                </label>
-                <label for="amount-3" class="amount js-amount" data-value="25.00">
-                  <input type="radio" id="amount-3" name="radio-amount">
-                  <span>￥25</span>
-                </label>
-                <label for="amount-4" class="amount js-amount" data-value="100.00">
-                  <input type="radio" id="amount-4" name="radio-amount">
-                  <span>￥100</span>
-                </label>
-              </div>
-
-              <input type="submit" value="Donate now" class="btn-secondary w-100">
-            </form>
-          </div>
         </div>
       </section>
     </main>
@@ -132,17 +114,21 @@
 import axios from 'axios'
 import ProgramPreview from '../components/programPreview.vue'
 import Announcement from '../components/announcement.vue'
+import Donate from '../components/donate.vue'
 export default {
   name: 'ProjectDetail',
   components: {
     'ProgramPreview': ProgramPreview,
-    'Announcement': Announcement
+    'Announcement': Announcement,
+    'Donate': Donate
   },
   data() {
     return {
       id: '',
       Detail: {},
-      Announcements: []
+      Announcements: [],
+
+      centerDialogVisible: false
     }
   },
   mounted() {
@@ -185,4 +171,5 @@ export default {
 
 <style scoped>
 @import '../assets/css/style2.css';
+@import '../assets/css/style.css';
 </style>
