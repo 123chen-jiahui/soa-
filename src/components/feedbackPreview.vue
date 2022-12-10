@@ -1,0 +1,57 @@
+<template>
+  <div>
+    <div class="properties pb-30">
+      <div class="properties__card">
+
+        <div class="properties__caption">
+          <h3><router-link to="/index" style="text-decoration: none;">{{ feedback.title }}</router-link></h3>
+          <p>{{ feedback.projectName }}</p>
+        </div>
+        <div class="properties__footer d-flex flex-wrap justify-content-between align-items-center">
+          <div class="class-day">
+            <span>{{ feedback.organization }}</span>
+          </div>
+          <div class="class-day">
+            <div @click="showDetail()">
+              <a class="btn_01" style="text-decoration: none;">Detail</a>
+            </div>
+          </div>
+        </div>
+
+        <el-dialog :visible.sync="centerDialogVisible" width="70%" center>
+          <div v-html="feedback.content"></div>
+          <span slot="footer" class="dialog-footer">
+            <el-button @click="centerDialogVisible = false">Cancle</el-button>
+            <el-button type="primary" @click="centerDialogVisible = false">OK</el-button>
+          </span>
+        </el-dialog>
+
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'FeedbackPreview',
+  props: ['feedback'], // 参数feedback
+  data() {
+    return {
+      centerDialogVisible: false
+    }
+  },
+  methods: {
+    sayhello() {
+      console.log('hello')
+    },
+    showDetail() {
+      this.centerDialogVisible = true
+
+    }
+  }
+}
+</script>
+
+<style scoped>
+@import '../assets/css/style.css';
+</style>

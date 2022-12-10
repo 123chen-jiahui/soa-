@@ -48,12 +48,12 @@
     </header>
     <main>
       <div class="slider-area">
-        <div class="slider-height2 slider-bg2 d-flex align-items-center">
+        <div class="slider-height2 xxx d-flex align-items-center">
           <div class="container">
             <div class="row">
               <div class="col-xl-5 col-lg-6 col-md-8">
                 <div class="hero-caption hero-caption2">
-                  <h2 class="animate__animated animate__fadeInUp animate__fast">Programs</h2>
+                  <h2 class="animate__animated animate__fadeInUp animate__fast">Feedbacks</h2>
                 </div>
               </div>
             </div>
@@ -66,15 +66,14 @@
             <div class="col-xl-12">
               <!-- Section Tittle -->
               <div class="section-tittle text-center">
-                <span>Programs</span>
-                <h2>Ongoing Programs</h2>
+                <span>Feedbacks</span>
+                <h2>Received Feedbacks</h2>
               </div>
             </div>
           </div>
           <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-6" v-for="(item, index) in Projects" :key="index">
-              <ProgramPreview :Id=item._id :ImgUrls=item.imgUrls :Describe=item.describe :ProjectName=item.projectName
-                :Organization=item.organization />
+            <div class="col-lg-6 col-md-6 col-sm-6" v-for="(item, index) in feedbacks" :key="index">
+              <FeedbackPreview :feedback=item />
             </div>
           </div>
         </div>
@@ -102,31 +101,29 @@
   </div>
 </template>
 
+
 <script>
-import axios from 'axios'
-import ProgramPreview from '../components/programPreview.vue'
+import axios from 'axios';
+import FeedbackPreview from '../components/feedbackPreview.vue'
 export default {
-  name: 'Projects',
+  name: 'Feedbacks',
   components: {
-    'ProgramPreview': ProgramPreview
+    'FeedbackPreview': FeedbackPreview
   },
   data() {
     return {
-      Projects: []
+      feedbacks: []
     }
   },
   mounted() {
     const outerthis = this
     axios({
       method: 'get',
-      url: '/test/project-microservice/project',
-      params: {
-        page: '1'
-      }
-    }).then(function (response) {
-      console.log(response.data)
-      outerthis.Projects = response.data
-    }).catch(function (error) {
+      url: '/processmanagement-microservice/processmanagement/feedback/all'
+    }).then(function(response) {
+      outerthis.feedbacks = response.data
+      console.log(outerthis.feedbacks)
+    }).catch(function(error) {
       console.log(error)
     })
   }
@@ -134,5 +131,5 @@ export default {
 </script>
 
 <style scoped>
-
+@import '../assets/css/style.css'
 </style>

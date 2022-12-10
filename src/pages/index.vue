@@ -18,8 +18,7 @@
                                             <ul id="navigation">
                                                 <li><router-link to="/index"
                                                         style="text-decoration: none;">Home</router-link></li>
-                                                <li><router-link to="/index" style="text-decoration: none;">Who we
-                                                        are?</router-link></li>
+                                                <li><router-link to="/feedbacks" style="text-decoration: none;">FeedBacks</router-link></li>
                                                 <li><router-link to="/projects"
                                                         style="text-decoration: none;">Programs</router-link></li>
                                                 <li><router-link to="/index"

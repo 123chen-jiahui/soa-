@@ -5,3 +5,4 @@ Mock.mock("/test/project-microservice/project/random", "get", require("./data/ra
 Mock.mock("/test/project-microservice/project?page=1", "get", require("./data/projects_page1.json"))
 Mock.mock("/test/project-microservice/project?id=id_11", "get", require("./data/project.json"))
 Mock.mock("/test/follow-microservice/notice/SB?subjectId=id_11", "get" , require("./data/announcements.json"))
+Mock.mock("/processmanagement-microservice/processmanagement/feedback/all", "get" , require("./data/feedbacks.json"))

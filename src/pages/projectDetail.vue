@@ -17,7 +17,7 @@
                     <nav>
                       <ul id="navigation">
                         <li><router-link to="/index" style="text-decoration: none;">Home</router-link></li>
-                        <li><router-link to="/index" style="text-decoration: none;">Who we are?</router-link></li>
+                        <li><router-link to="/feedbacks" style="text-decoration: none;">FeedBacks</router-link></li>
                         <li><router-link to="/projects" style="text-decoration: none;">Programs</router-link></li>
                         <li><router-link to="/index" style="text-decoration: none;">About</router-link></li>
                         <li><router-link to="/index" style="text-decoration: none;">Blog</router-link>
@@ -106,6 +106,26 @@
         </div>
       </section>
     </main>
+    <footer>
+            <div class="footer-wrapper">
+                <div class="footer-bottom-area">
+                    <div class="container">
+                        <div class="footer-border">
+                            <div class="row">
+                                <div class="col-xl-12 ">
+                                    <div class="footer-copy-right text-center">
+                                        <p>Copyright &copy;2022 All rights reserved | This template is made with <i
+                                                class="fa fa-heart color-danger" aria-hidden="true"></i> by <a
+                                                href="https://colorlib.com" target="_blank"
+                                                rel="nofollow noopener">Colorlib</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
   </div>
 </template>
 
@@ -135,7 +155,8 @@ export default {
     this.id = this.$route.params.id
     // 根据项目Id获取项目所有信息
     // 根据项目Id获取项目所有公告
-    // 根据项目Id获取该项目发给改用户的所有反馈
+
+    // 获取项目信息
     const outerthis = this
     axios({
       method: 'get',
@@ -144,13 +165,12 @@ export default {
         id: this.id // 该id是父组件通过参数传进来的
       }
     }).then(function (response) {
-      console.log(response.data)
       outerthis.Detail = response.data
     }).catch(function (error) {
       console.log(error)
     })
 
-    console.log('寄')
+    // 获取公告
     axios({
       method: 'get',
       url: '/test/follow-microservice/notice/SB',
@@ -158,9 +178,7 @@ export default {
         subjectId: this.id
       }
     }).then(function (response) {
-      console.log(response)
       outerthis.Announcements = response.data
-      console.log(outerthis.Announcements)
     }).catch(function (error) {
       alert(error)
     })
