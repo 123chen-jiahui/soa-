@@ -4,8 +4,8 @@
       <div class="properties__card">
 
         <div class="properties__caption">
-          <h3><router-link to="/index" style="text-decoration: none;">{{ feedback.title }}</router-link></h3>
-          <p>{{ feedback.projectName }}</p>
+          <h3><router-link to="/index" style="text-decoration: none;">{{ feedback.projectName }}</router-link></h3>
+          <p>反馈时间：{{ feedback.createTime }}</p>
         </div>
         <div class="properties__footer d-flex flex-wrap justify-content-between align-items-center">
           <div class="class-day">
