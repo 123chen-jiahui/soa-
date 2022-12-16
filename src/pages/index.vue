@@ -84,7 +84,7 @@
                         <div class="class-offer-active row">
                             <div class="col-lg-4 col-md-6 col-sm-6" v-for="(item, index) in Projects" :key="index">
                                 <!-- Single -->
-                                <ProgramPreview :Id=item._id :ImgUrls=item.imgUrls :Describe=item.describe
+                                <ProgramPreview :Id=item.id :ImgUrls=item.picPaths :Describe=item.describe
                                     :ProjectName=item.projectName :Organization=item.organization />
                             </div>
                         </div>
@@ -178,7 +178,11 @@ export default {
         const outerthis = this
         axios({
             method: 'get',
-            url: '/test/project-microservice/project/random'
+            url: 'http://121.5.128.97:9009/v1.0/sponsor-microservice/projects/RPInfo',
+            params: {
+                size: 3
+            }
+            // url: '/test/project-microservice/project/random'
         }).then(function (response) {
             console.log(response.data)
             outerthis.Projects = response.data

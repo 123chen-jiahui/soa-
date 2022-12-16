@@ -73,7 +73,7 @@
           </div>
           <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6" v-for="(item, index) in Projects" :key="index">
-              <ProgramPreview :Id=item._id :ImgUrls=item.imgUrls :Describe=item.describe :ProjectName=item.projectName
+              <ProgramPreview :Id=item.id :ImgUrls=item.picPaths :Describe=item.describe :ProjectName=item.projectName
                 :Organization=item.organization />
             </div>
           </div>
@@ -119,13 +119,18 @@ export default {
     const outerthis = this
     axios({
       method: 'get',
-      url: '/test/project-microservice/project',
+      // url: '/test/project-microservice/project',
+      // params: {
+      //   page: '1'
+      // }
+      url: 'http://121.5.128.97:9009/v1.0/sponsor-microservice/projects/page',
       params: {
-        page: '1'
+        index: 1,
+        pageSize: 4
       }
     }).then(function (response) {
       console.log(response.data)
-      outerthis.Projects = response.data
+      outerthis.Projects = response.data.content
     }).catch(function (error) {
       console.log(error)
     })

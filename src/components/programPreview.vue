@@ -39,7 +39,7 @@ export default {
     }
   },
   mounted() {
-    console.log(this.Id)
+    console.log('叽叽叽叽', this.Id)
     this.Id = '/projects/' + this.Id
     if (this.Describe.length > 50) {
       this.Describe = this.Describe.slice(0, 50) + '......'

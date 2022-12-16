@@ -68,7 +68,7 @@
             <div class="offset-xl-1 col-xxl-5 col-xl-5 col-lg-6 col-md-6">
 
               <el-carousel indicator-position="outside">
-                <el-carousel-item v-for="(img, index) in Detail.imgUrls" :key="index">
+                <el-carousel-item v-for="(img, index) in Detail.picPaths" :key="index">
                   <div class="about-img about-img1">
                     <router-link to="/index" style="text-decoration: none;"><img :src=img alt=""></router-link>
                   </div>
@@ -148,6 +148,7 @@ export default {
       Detail: {},
       Announcements: [],
 
+      data: {},
       centerDialogVisible: false
     }
   },
@@ -156,30 +157,18 @@ export default {
     // 根据项目Id获取项目所有信息
     // 根据项目Id获取项目所有公告
 
-    // 获取项目信息
     const outerthis = this
     axios({
       method: 'get',
-      url: '/test/project-microservice/project',
+      url: 'http://121.5.128.97:9009/v1.0/sponsor-microservice/projects/projectAndNotice',
       params: {
-        id: this.id // 该id是父组件通过参数传进来的
+        id: this.id
       }
-    }).then(function (response) {
+    }).then(function(response) {
+      console.log(response)
       outerthis.Detail = response.data
-    }).catch(function (error) {
-      console.log(error)
-    })
-
-    // 获取公告
-    axios({
-      method: 'get',
-      url: '/test/follow-microservice/notice/SB',
-      params: {
-        subjectId: this.id
-      }
-    }).then(function (response) {
-      outerthis.Announcements = response.data
-    }).catch(function (error) {
+      outerthis.Announcements = response.data.notice
+    }).catch(function(error) {
       alert(error)
     })
   }
