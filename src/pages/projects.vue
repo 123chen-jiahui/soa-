@@ -76,6 +76,8 @@
               <ProgramPreview :Id=item.id :ImgUrls=item.picPaths :Describe=item.describe :ProjectName=item.projectName
                 :Organization=item.organization />
             </div>
+            <el-pagination @current-change="pageChange" :page-size="4" :pager-count="5" layout="prev, pager, next" :total=total>
+            </el-pagination>
           </div>
         </div>
       </div>
@@ -112,7 +114,25 @@ export default {
   },
   data() {
     return {
-      Projects: []
+      Projects: [],
+      total: 0,
+    }
+  },
+  methods: {
+    pageChange: function(val) {
+      const outerthis = this
+      axios({
+        method: 'get',
+        url: 'http://121.5.128.97:9009/v1.0/sponsor-microservice/projects/page',
+        params: {
+          index: val,
+          pageSize: 4
+        }
+      }).then(function(response) {
+        outerthis.Projects = response.data.content
+      }).catch(function(error) {
+        alert(error)
+      })
     }
   },
   mounted() {
@@ -131,6 +151,7 @@ export default {
     }).then(function (response) {
       console.log(response.data)
       outerthis.Projects = response.data.content
+      outerthis.total = response.data.totalElements
     }).catch(function (error) {
       console.log(error)
     })
