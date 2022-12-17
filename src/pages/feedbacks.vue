@@ -119,7 +119,13 @@ export default {
     const outerthis = this
     axios({
       method: 'get',
-      url: '/processmanagement-microservice/processmanagement/feedback/all'
+      // url: '/processmanagement-microservice/processmanagement/feedback/all'
+      url: 'http://121.5.128.97:9009/v1.0/sponsor-microservice/feedback/all',
+      params: {
+        index: 1,
+        pageSize: 4,
+        sponsorId: '1' // 这里不应该写死，等身份验证出来以后再改
+      }
     }).then(function(response) {
       outerthis.feedbacks = response.data
       console.log(outerthis.feedbacks)

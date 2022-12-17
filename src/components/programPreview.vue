@@ -39,8 +39,7 @@ export default {
     }
   },
   mounted() {
-    console.log('叽叽叽叽', this.Id)
-    this.Id = '/projects/' + this.Id
+    // 只显示50个字符
     if (this.Describe.length > 50) {
       this.Describe = this.Describe.slice(0, 50) + '......'
     }

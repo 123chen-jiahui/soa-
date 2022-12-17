@@ -76,7 +76,8 @@
               <ProgramPreview :Id=item.id :ImgUrls=item.picPaths :Describe=item.describe :ProjectName=item.projectName
                 :Organization=item.organization />
             </div>
-            <el-pagination @current-change="pageChange" :page-size="4" :pager-count="5" layout="prev, pager, next" :total=total>
+            <el-pagination @current-change="pageChange" :page-size="4" :pager-count="5" layout="prev, pager, next"
+              :total=total>
             </el-pagination>
           </div>
         </div>
@@ -119,7 +120,7 @@ export default {
     }
   },
   methods: {
-    pageChange: function(val) {
+    pageChange: function (val) {
       const outerthis = this
       axios({
         method: 'get',
@@ -128,9 +129,13 @@ export default {
           index: val,
           pageSize: 4
         }
-      }).then(function(response) {
+      }).then(function (response) {
         outerthis.Projects = response.data.content
-      }).catch(function(error) {
+        // 修改id，便于页面跳转
+        for (var i = 0; i < outerthis.Projects.length; i++) {
+          outerthis.Projects[i].id = '/projects/' + outerthis.Projects[i].id
+        }
+      }).catch(function (error) {
         alert(error)
       })
     }
@@ -151,6 +156,10 @@ export default {
     }).then(function (response) {
       console.log(response.data)
       outerthis.Projects = response.data.content
+      // 修改id，便于页面跳转
+      for (var i = 0; i < outerthis.Projects.length; i++) {
+        outerthis.Projects[i].id = '/projects/' + outerthis.Projects[i].id
+      }
       outerthis.total = response.data.totalElements
     }).catch(function (error) {
       console.log(error)

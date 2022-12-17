@@ -18,7 +18,8 @@
                                             <ul id="navigation">
                                                 <li><router-link to="/index"
                                                         style="text-decoration: none;">Home</router-link></li>
-                                                <li><router-link to="/feedbacks" style="text-decoration: none;">FeedBacks</router-link></li>
+                                                <li><router-link to="/feedbacks"
+                                                        style="text-decoration: none;">FeedBacks</router-link></li>
                                                 <li><router-link to="/projects"
                                                         style="text-decoration: none;">Programs</router-link></li>
                                                 <li><router-link to="/index"
@@ -186,6 +187,9 @@ export default {
         }).then(function (response) {
             console.log(response.data)
             outerthis.Projects = response.data
+            for (var i = 0; i < outerthis.Projects.length; i++) {
+                outerthis.Projects[i].id = '/projects/' + outerthis.Projects[i].id
+            }
         }).catch(function (error) {
             console.log(error)
         })

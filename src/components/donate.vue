@@ -2,7 +2,7 @@
   <div>
     <form action="#" class="bg-white p-5 rounded donation-form" data-aos="fade-up">
       <h3>Quick Donation Form</h3>
-      这里显示单价
+      ￥{{ monthFee }} per month
       <div class="form-field mb-3">
         <label for="amount-1" class="amount js-amount" @click="setMonth(1)">
           <input type="radio" id="amount-1" name="radio-amount" checked="true">
@@ -21,7 +21,7 @@
       </div>
       <div class="field-icon">
         <span>￥</span>
-        <input type="text" placeholder="0.00" class="form-control px-4" name="donate-value" value="这里显示总金额">
+        <input type="text" placeholder="0.00" class="form-control px-4" name="donate-value" :value=total>
       </div>
     </form>
   </div>
@@ -30,9 +30,23 @@
 <script>
 export default {
   name: 'Donate',
+  props: ['monthFee'],
   data() {
     return {
       monthChosen: 1,
+
+      total: this.monthFee
+    }
+  },
+  watch: {
+    monthChosen(val) {
+      if (val == 1) {
+        this.total = this.monthFee
+      } else if (val == 6) {
+        this.total = this.monthFee * 6 * 0.95
+      } else {
+        this.total = this.monthFee * 12 * 0.9
+      }
     }
   },
   methods: {

@@ -76,7 +76,7 @@
               </el-carousel>
 
               <el-dialog :visible.sync="centerDialogVisible" width="35%" center>
-                <Donate />
+                <Donate :monthFee=Detail.monthFee />
                 <span slot="footer" class="dialog-footer">
                   <el-button @click="centerDialogVisible = false">Cancle</el-button>
                   <el-button type="primary" @click="centerDialogVisible = false">Donate</el-button>
@@ -94,7 +94,8 @@
                   <div class="double-btn d-flex flex-wrap">
                     <div class="btn_01 mr-15" @click="centerDialogVisible = true">Donate
                       Now</div>
-                    <router-link to="/index" style="text-decoration: none;" class="border-btn">Follow</router-link>
+                    <div class="border-btn" @click="follow()">follow</div>
+                    <!-- <router-link to="/index" style="text-decoration: none;" class="border-btn">Follow</router-link> -->
                   </div>
                 </div>
               </div>
@@ -150,6 +151,22 @@ export default {
 
       data: {},
       centerDialogVisible: false
+    }
+  },
+  methods: {
+    follow: function() {
+      axios({
+        method: 'post',
+        url: 'http://121.5.128.97:9009/v1.0/sponsor-microservice/follow/add',
+        params: {
+          subjectId: this.id,
+          followerId: '1' // 这里不应该写死，等身份验证出来以后再改
+        }
+      }).then(function() {
+        alert('关注成功')
+      }).catch(function(error) {
+        alert(error)
+      })
     }
   },
   mounted() {
