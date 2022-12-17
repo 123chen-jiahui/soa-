@@ -3,14 +3,16 @@
     <div class="properties pb-30">
       <div class="properties__card">
 
+        <!-- 轮播图 -->
         <el-carousel indicator-position="outside">
-          <el-carousel-item v-for="(img, index) in feedback.picPaths" :key="index">
+          <el-carousel-item v-for="(img, index) in feedback.pathList" :key="index">
             <div class="properties__img">
               <router-link to="/index" style="text-decoration: none;"><img :src=img alt=""></router-link>
             </div>
           </el-carousel-item>
         </el-carousel>
 
+        <!-- 未改完，等后端 -->
         <div class="properties__caption">
           <h3><router-link to="/index" style="text-decoration: none;">{{ feedback.projectName }}</router-link></h3>
           <p>反馈时间：{{ feedback.createTime }}</p>

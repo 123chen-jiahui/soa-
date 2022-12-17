@@ -48,12 +48,12 @@
     </header>
     <main>
       <div class="slider-area">
-        <div class="slider-height2 slider-bg2 d-flex align-items-center">
+        <div class="slider-height2 xxxx d-flex align-items-center">
           <div class="container">
             <div class="row">
               <div class="col-xl-5 col-lg-6 col-md-8">
                 <div class="hero-caption hero-caption2">
-                  <h2 class="animate__animated animate__fadeInUp animate__fast">Programs</h2>
+                  <h2 class="animate__animated animate__fadeInUp animate__fast">Follows</h2>
                 </div>
               </div>
             </div>
@@ -66,108 +66,24 @@
             <div class="col-xl-12">
               <!-- Section Tittle -->
               <div class="section-tittle text-center">
-                <span>Programs</span>
-                <h2>Ongoing Programs</h2>
+                <span>Follows</span>
+                <h2>Projects I Follow</h2>
               </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-6" v-for="(item, index) in Projects" :key="index">
-              <ProgramPreview :Id=item.id :ImgUrls=item.picPaths :Describe=item.describe :ProjectName=item.projectName
-                :Organization=item.organization />
-            </div>
-            <el-pagination background @current-change="pageChange" :page-size="4" :pager-count="10" layout="prev, pager, next"
-              :total=total>
-            </el-pagination>
           </div>
         </div>
       </div>
     </main>
-    <footer>
-      <div class="footer-wrapper">
-        <div class="footer-bottom-area">
-          <div class="container">
-            <div class="footer-border">
-              <div class="row">
-                <div class="col-xl-12 ">
-                  <div class="footer-copy-right text-center">
-                    <p>Copyright &copy;2022 All rights reserved | This template is made with <i
-                        class="fa fa-heart color-danger" aria-hidden="true"></i> by <a href="https://colorlib.com"
-                        target="_blank" rel="nofollow noopener">Colorlib</a></p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </footer>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
-import ProgramPreview from '../components/programPreview.vue'
 export default {
-  name: 'Projects',
-  components: {
-    'ProgramPreview': ProgramPreview
-  },
-  data() {
-    return {
-      Projects: [],
-      total: 0,
-    }
-  },
-  methods: {
-    pageChange: function (val) {
-      const outerthis = this
-      axios({
-        method: 'get',
-        url: 'http://121.5.128.97:9009/v1.0/sponsor-microservice/projects/page',
-        params: {
-          index: val,
-          pageSize: 4
-        }
-      }).then(function (response) {
-        outerthis.Projects = response.data.content
-        // 修改id，便于页面跳转
-        for (var i = 0; i < outerthis.Projects.length; i++) {
-          outerthis.Projects[i].id = '/projects/' + outerthis.Projects[i].id
-        }
-      }).catch(function (error) {
-        alert(error)
-      })
-    }
-  },
-  mounted() {
-    const outerthis = this
-    axios({
-      method: 'get',
-      // url: '/test/project-microservice/project',
-      // params: {
-      //   page: '1'
-      // }
-      url: 'http://121.5.128.97:9009/v1.0/sponsor-microservice/projects/page',
-      params: {
-        index: 1,
-        pageSize: 4
-      }
-    }).then(function (response) {
-      console.log(response.data)
-      outerthis.Projects = response.data.content
-      // 修改id，便于页面跳转
-      for (var i = 0; i < outerthis.Projects.length; i++) {
-        outerthis.Projects[i].id = '/projects/' + outerthis.Projects[i].id
-      }
-      outerthis.total = response.data.totalElements
-    }).catch(function (error) {
-      console.log(error)
-    })
-  }
+  name: 'Follows'
 }
 </script>
 
-<style scoped>
 
+<style scoped>
+@import '../assets/css/style.css';
 </style>

@@ -19,7 +19,7 @@
                         <li><router-link to="/index" style="text-decoration: none;">Home</router-link></li>
                         <li><router-link to="/feedbacks" style="text-decoration: none;">FeedBacks</router-link></li>
                         <li><router-link to="/projects" style="text-decoration: none;">Programs</router-link></li>
-                        <li><router-link to="/index" style="text-decoration: none;">About</router-link></li>
+                        <li><router-link to="/follows" style="text-decoration: none;">Follows</router-link></li>
                         <li><router-link to="/index" style="text-decoration: none;">Blog</router-link>
                           <ul class="submenu">
                             <li><router-link to="/index" style="text-decoration: none;">Blog</router-link></li>

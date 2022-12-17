@@ -22,8 +22,8 @@
                                                         style="text-decoration: none;">FeedBacks</router-link></li>
                                                 <li><router-link to="/projects"
                                                         style="text-decoration: none;">Programs</router-link></li>
-                                                <li><router-link to="/index"
-                                                        style="text-decoration: none;">About</router-link></li>
+                                                <li><router-link to="/follows"
+                                                        style="text-decoration: none;">Follows</router-link></li>
                                                 <li><router-link to="/index"
                                                         style="text-decoration: none;">Blog</router-link>
                                                     <ul class="submenu">
@@ -179,7 +179,7 @@ export default {
         const outerthis = this
         axios({
             method: 'get',
-            url: 'http://121.5.128.97:9009/v1.0/sponsor-microservice/projects/RPInfo',
+            url: 'http://121.5.128.97:9009/v1.1/sponsor-microservice/projects/RPInfo',
             params: {
                 size: 3
             }

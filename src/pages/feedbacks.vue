@@ -19,7 +19,7 @@
                         <li><router-link to="/index" style="text-decoration: none;">Home</router-link></li>
                         <li><router-link to="/feedbacks" style="text-decoration: none;">FeedBacks</router-link></li>
                         <li><router-link to="/projects" style="text-decoration: none;">Programs</router-link></li>
-                        <li><router-link to="/index" style="text-decoration: none;">About</router-link></li>
+                        <li><router-link to="/follows" style="text-decoration: none;">Follows</router-link></li>
                         <li><router-link to="/index" style="text-decoration: none;">Blog</router-link>
                           <ul class="submenu">
                             <li><router-link to="/index" style="text-decoration: none;">Blog</router-link></li>
@@ -75,7 +75,7 @@
             <div class="col-lg-6 col-md-6 col-sm-6" v-for="(item, index) in feedbacks" :key="index">
               <FeedbackPreview :feedback=item />
             </div>
-            <el-pagination @current-change="pageChange" :page-size="4" :pager-count="5" layout="prev, pager, next" :total=total>
+            <el-pagination @current-change="pageChange" :page-size="4" :pager-count="10" layout="prev, pager, next" :total=Total>
             </el-pagination>
           </div>
         </div>
@@ -123,14 +123,15 @@ export default {
     axios({
       method: 'get',
       // url: '/processmanagement-microservice/processmanagement/feedback/all'
-      url: 'http://121.5.128.97:9009/v1.0/sponsor-microservice/feedback/all',
+      url: 'http://121.5.128.97:9009/v1.5/sponsor-microservice/feedback/SPPlusPage',
       params: {
         index: 1,
         pageSize: 4,
         sponsorId: '1' // 这里不应该写死，等身份验证出来以后再改
       }
     }).then(function(response) {
-      outerthis.feedbacks = response.data
+      outerthis.feedbacks = response.data.List
+      outerthis.total = response.data.Total
       console.log(outerthis.feedbacks)
     }).catch(function(error) {
       console.log(error)
