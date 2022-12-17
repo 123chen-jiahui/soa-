@@ -75,6 +75,8 @@
             <div class="col-lg-6 col-md-6 col-sm-6" v-for="(item, index) in feedbacks" :key="index">
               <FeedbackPreview :feedback=item />
             </div>
+            <el-pagination @current-change="pageChange" :page-size="4" :pager-count="5" layout="prev, pager, next" :total=total>
+            </el-pagination>
           </div>
         </div>
       </div>
@@ -112,7 +114,8 @@ export default {
   },
   data() {
     return {
-      feedbacks: []
+      feedbacks: [],
+      total: 0,
     }
   },
   mounted() {
