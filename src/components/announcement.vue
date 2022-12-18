@@ -1,7 +1,6 @@
 <template>
   <div>
     <div class="blog_details" v-for="(item, index) in Announcements" :key="index">
-        <h2 class="blog-head" style="color: #2d2d2d;">{{item.title}}</h2>
       <div class="quote-wrapper">
         <div class="quotes">{{item.content}}
         </div>

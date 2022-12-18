@@ -71,7 +71,7 @@
               <ProgramPreview :Id=item.id :ImgUrls=item.picPaths :Describe=item.describe :ProjectName=item.projectName
                 :Organization=item.organization />
             </div>
-            <el-pagination background @current-change="pageChange" :page-size="4" :pager-count="10"
+            <el-pagination background @current-change="pageChange" :page-size="4" :pager-count="9"
               layout="prev, pager, next" :total=total>
             </el-pagination>
           </div>

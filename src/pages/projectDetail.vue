@@ -65,7 +65,7 @@
               <el-carousel indicator-position="outside">
                 <el-carousel-item v-for="(img, index) in Detail.picPaths" :key="index">
                   <div class="about-img about-img1">
-                    <router-link to="/index" style="text-decoration: none;"><img :src=img alt=""></router-link>
+                    <img :src=img alt="">
                   </div>
                 </el-carousel-item>
               </el-carousel>

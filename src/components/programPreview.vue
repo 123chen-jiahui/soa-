@@ -6,7 +6,7 @@
       <el-carousel indicator-position="outside">
         <el-carousel-item v-for="(img, index) in ImgUrls" :key="index">
           <div class="properties__img">
-            <router-link to="/index" style="text-decoration: none;"><img :src=img alt=""></router-link>
+            <img :src=img alt="">
           </div>
         </el-carousel-item>
       </el-carousel>

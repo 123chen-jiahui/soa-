@@ -70,7 +70,7 @@
             <div class="col-lg-6 col-md-6 col-sm-6" v-for="(item, index) in feedbacks" :key="index">
               <FeedbackPreview :feedback=item />
             </div>
-            <el-pagination @current-change="pageChange" :page-size="4" :pager-count="10" layout="prev, pager, next" :total=Total>
+            <el-pagination background="" @current-change="pageChange" :page-size="4" :pager-count="11" layout="prev, pager, next" :total=total>
             </el-pagination>
           </div>
         </div>
@@ -113,6 +113,25 @@ export default {
       total: 0,
     }
   },
+  methods: {
+    pageChange: function(val) {
+      const outerthis = this
+      axios({
+        method: 'get',
+        url: 'http://121.5.128.97:9009/v2.0/sponsor-microservice/feedback/SPPlusPage',
+        params: {
+          index: val,
+          pageSize: 4,
+          sponsorId: '1'
+        }
+      }).then(function (response) {
+        outerthis.feedbacks = response.data.List
+        outerthis.total = response.data.Total
+      }).catch(function (error) {
+        alert(error)
+      })
+    }
+  },
   mounted() {
     const outerthis = this
     axios({
@@ -121,14 +140,12 @@ export default {
       url: 'http://121.5.128.97:9009/v2.0/sponsor-microservice/feedback/SPPlusPage',
       params: {
         index: 1,
-        pageSize: 3,
+        pageSize: 4,
         sponsorId: '1' // 这里不应该写死，等身份验证出来以后再改
       }
     }).then(function(response) {
-      console.log(response.data)
       outerthis.feedbacks = response.data.List
       outerthis.total = response.data.Total
-      console.log(outerthis.feedbacks)
     }).catch(function(error) {
       console.log(error)
     })

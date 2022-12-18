@@ -175,6 +175,9 @@ export default {
             console.log(response.data)
             outerthis.Projects = response.data
             for (var i = 0; i < outerthis.Projects.length; i++) {
+                if (outerthis.Projects[i].describe.length > 50) {
+                    outerthis.Projects[i].describe = outerthis.Projects[i].describe.slice(0, 50) + '......'
+                }
                 outerthis.Projects[i].id = '/projects/' + outerthis.Projects[i].id
             }
         }).catch(function (error) {
