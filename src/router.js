@@ -10,6 +10,7 @@ import Projects from './pages/projects.vue'
 import ProjectDetail from './pages/projectDetail.vue'
 import Feedbacks from './pages/feedbacks.vue'
 import Follows from './pages/follows.vue'
+import Notices from './pages/notices.vue'
 
 //定义routes路由的集合，数组类型
 const routes = [
@@ -18,6 +19,7 @@ const routes = [
     { path: '/projects', component: Projects },
     { path: '/feedbacks', component: Feedbacks },
     { path: '/follows', component: Follows },
+    { path: '/notices', component: Notices },
     { path: '/projects/:id', name: ProjectDetail, component: ProjectDetail },
     { path: '', redirect: 'index' }
 ]

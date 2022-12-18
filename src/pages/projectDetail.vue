@@ -20,12 +20,7 @@
                         <li><router-link to="/feedbacks" style="text-decoration: none;">FeedBacks</router-link></li>
                         <li><router-link to="/projects" style="text-decoration: none;">Programs</router-link></li>
                         <li><router-link to="/follows" style="text-decoration: none;">Follows</router-link></li>
-                        <li><router-link to="/index" style="text-decoration: none;">Blog</router-link>
-                          <ul class="submenu">
-                            <li><router-link to="/index" style="text-decoration: none;">Blog</router-link></li>
-                            <li><router-link to="/index" style="text-decoration: none;">Blog Details</router-link></li>
-                            <li><router-link to="/index" style="text-decoration: none;">Elements</router-link></li>
-                          </ul>
+                        <li><router-link to="/notices" style="text-decoration: none;">Notices</router-link>
                         </li>
                         <li><router-link to="/index" style="text-decoration: none;">Contact Us</router-link></li>
                       </ul>
@@ -76,10 +71,10 @@
               </el-carousel>
 
               <el-dialog :visible.sync="centerDialogVisible" width="35%" center>
-                <Donate :monthFee=Detail.monthFee />
+                <Donate ref="total" :monthFee=Detail.monthFee />
                 <span slot="footer" class="dialog-footer">
                   <el-button @click="centerDialogVisible = false">Cancle</el-button>
-                  <el-button type="primary" @click="centerDialogVisible = false">Donate</el-button>
+                  <el-button type="primary" @click="sponsor()">Donate</el-button>
                 </span>
               </el-dialog>
 
@@ -150,14 +145,14 @@ export default {
       Announcements: [],
 
       data: {},
-      centerDialogVisible: false
+      centerDialogVisible: false,
     }
   },
   methods: {
     follow: function() {
       axios({
         method: 'post',
-        url: 'http://121.5.128.97:9009/v1.0/sponsor-microservice/follow/add',
+        url: 'http://121.5.128.97:9009/v2.0/sponsor-microservice/follow/add',
         params: {
           subjectId: this.id,
           followerId: '1' // 这里不应该写死，等身份验证出来以后再改
@@ -167,6 +162,23 @@ export default {
       }).catch(function(error) {
         alert(error)
       })
+    },
+    sponsor: function() {
+      // 待定，等后端
+
+      // 获取子组件的参数
+      var total = this.$refs.total.total
+      var monthChosen = this.$refs.total.monthChosen
+      var day
+      if (monthChosen == 12) {
+        day = 365
+      } else if (monthChosen == 6) {
+        day = 183
+      } else {
+        day = 31
+      }
+      console.log(total, monthChosen, day)
+      this.centerDialogVisible = false
     }
   },
   mounted() {
@@ -177,7 +189,7 @@ export default {
     const outerthis = this
     axios({
       method: 'get',
-      url: 'http://121.5.128.97:9009/v1.0/sponsor-microservice/projects/projectAndNotice',
+      url: 'http://121.5.128.97:9009/v2.0/sponsor-microservice/projects/projectAndNotice',
       params: {
         id: this.id
       }

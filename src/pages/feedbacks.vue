@@ -20,12 +20,7 @@
                         <li><router-link to="/feedbacks" style="text-decoration: none;">FeedBacks</router-link></li>
                         <li><router-link to="/projects" style="text-decoration: none;">Programs</router-link></li>
                         <li><router-link to="/follows" style="text-decoration: none;">Follows</router-link></li>
-                        <li><router-link to="/index" style="text-decoration: none;">Blog</router-link>
-                          <ul class="submenu">
-                            <li><router-link to="/index" style="text-decoration: none;">Blog</router-link></li>
-                            <li><router-link to="/index" style="text-decoration: none;">Blog Details</router-link></li>
-                            <li><router-link to="/index" style="text-decoration: none;">Elements</router-link></li>
-                          </ul>
+                        <li><router-link to="/notices" style="text-decoration: none;">Notices</router-link>
                         </li>
                         <li><router-link to="/index" style="text-decoration: none;">Contact Us</router-link></li>
                       </ul>
@@ -123,13 +118,14 @@ export default {
     axios({
       method: 'get',
       // url: '/processmanagement-microservice/processmanagement/feedback/all'
-      url: 'http://121.5.128.97:9009/v1.5/sponsor-microservice/feedback/SPPlusPage',
+      url: 'http://121.5.128.97:9009/v2.0/sponsor-microservice/feedback/SPPlusPage',
       params: {
         index: 1,
-        pageSize: 4,
+        pageSize: 3,
         sponsorId: '1' // 这里不应该写死，等身份验证出来以后再改
       }
     }).then(function(response) {
+      console.log(response.data)
       outerthis.feedbacks = response.data.List
       outerthis.total = response.data.Total
       console.log(outerthis.feedbacks)

@@ -20,12 +20,7 @@
                         <li><router-link to="/feedbacks" style="text-decoration: none;">FeedBacks</router-link></li>
                         <li><router-link to="/projects" style="text-decoration: none;">Programs</router-link></li>
                         <li><router-link to="/follows" style="text-decoration: none;">Follows</router-link></li>
-                        <li><router-link to="/index" style="text-decoration: none;">Blog</router-link>
-                          <ul class="submenu">
-                            <li><router-link to="/index" style="text-decoration: none;">Blog</router-link></li>
-                            <li><router-link to="/index" style="text-decoration: none;">Blog Details</router-link></li>
-                            <li><router-link to="/index" style="text-decoration: none;">Elements</router-link></li>
-                          </ul>
+                        <li><router-link to="/notices" style="text-decoration: none;">Notices</router-link>
                         </li>
                         <li><router-link to="/index" style="text-decoration: none;">Contact Us</router-link></li>
                       </ul>
@@ -76,8 +71,8 @@
               <ProgramPreview :Id=item.id :ImgUrls=item.picPaths :Describe=item.describe :ProjectName=item.projectName
                 :Organization=item.organization />
             </div>
-            <el-pagination background @current-change="pageChange" :page-size="4" :pager-count="10" layout="prev, pager, next"
-              :total=total>
+            <el-pagination background @current-change="pageChange" :page-size="4" :pager-count="10"
+              layout="prev, pager, next" :total=total>
             </el-pagination>
           </div>
         </div>
@@ -124,7 +119,7 @@ export default {
       const outerthis = this
       axios({
         method: 'get',
-        url: 'http://121.5.128.97:9009/v1.0/sponsor-microservice/projects/page',
+        url: 'http://121.5.128.97:9009/v2.0/sponsor-microservice/projects/page',
         params: {
           index: val,
           pageSize: 4
@@ -133,6 +128,9 @@ export default {
         outerthis.Projects = response.data.content
         // 修改id，便于页面跳转
         for (var i = 0; i < outerthis.Projects.length; i++) {
+          if (outerthis.Projects[i].describe.length > 50) {
+            outerthis.Projects[i].describe = outerthis.Projects[i].describe.slice(0, 50) + '......'
+          }
           outerthis.Projects[i].id = '/projects/' + outerthis.Projects[i].id
         }
       }).catch(function (error) {
@@ -148,7 +146,7 @@ export default {
       // params: {
       //   page: '1'
       // }
-      url: 'http://121.5.128.97:9009/v1.0/sponsor-microservice/projects/page',
+      url: 'http://121.5.128.97:9009/v2.0/sponsor-microservice/projects/page',
       params: {
         index: 1,
         pageSize: 4
@@ -158,6 +156,9 @@ export default {
       outerthis.Projects = response.data.content
       // 修改id，便于页面跳转
       for (var i = 0; i < outerthis.Projects.length; i++) {
+        if (outerthis.Projects[i].describe.length > 50) {
+          outerthis.Projects[i].describe = outerthis.Projects[i].describe.slice(0, 50) + '......'
+        }
         outerthis.Projects[i].id = '/projects/' + outerthis.Projects[i].id
       }
       outerthis.total = response.data.totalElements

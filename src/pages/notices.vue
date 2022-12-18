@@ -43,12 +43,12 @@
     </header>
     <main>
       <div class="slider-area">
-        <div class="slider-height2 xxxx d-flex align-items-center">
+        <div class="slider-height2 xxxxx d-flex align-items-center">
           <div class="container">
             <div class="row">
               <div class="col-xl-5 col-lg-6 col-md-8">
                 <div class="hero-caption hero-caption2">
-                  <h2 class="animate__animated animate__fadeInUp animate__fast">Follows</h2>
+                  <h2 class="animate__animated animate__fadeInUp animate__fast">Notices</h2>
                 </div>
               </div>
             </div>
@@ -61,8 +61,8 @@
             <div class="col-xl-12">
               <!-- Section Tittle -->
               <div class="section-tittle text-center">
-                <span>Follows</span>
-                <h2>Projects I Follow</h2>
+                <span>Notices</span>
+                <h2>Notices Received</h2>
               </div>
             </div>
           </div>
@@ -72,24 +72,10 @@
   </div>
 </template>
 
+
 <script>
-import axios from 'axios'
 export default {
-  name: 'Follows',
-  mounted() {
-    console.log('寄')
-    axios({
-      method: 'get',
-      url: 'http://121.5.128.97:9009/v2.0/sponsor-microservice/projects/RPInfo',
-      params: {
-        id: '1'
-      }
-    }).then(function(response) {
-      console.log(response)
-    }).catch(function(error) {
-      alert(error)
-    })
-  }
+  name: 'Notices'
 }
 </script>
 

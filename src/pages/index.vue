@@ -24,17 +24,8 @@
                                                         style="text-decoration: none;">Programs</router-link></li>
                                                 <li><router-link to="/follows"
                                                         style="text-decoration: none;">Follows</router-link></li>
-                                                <li><router-link to="/index"
-                                                        style="text-decoration: none;">Blog</router-link>
-                                                    <ul class="submenu">
-                                                        <li><router-link to="/index"
-                                                                style="text-decoration: none;">Blog</router-link></li>
-                                                        <li><router-link to="/index" style="text-decoration: none;">Blog
-                                                                Details</router-link></li>
-                                                        <li><router-link to="/index"
-                                                                style="text-decoration: none;">Elements</router-link>
-                                                        </li>
-                                                    </ul>
+                                                <li><router-link to="/notices"
+                                                        style="text-decoration: none;">Notices</router-link>
                                                 </li>
                                                 <li><router-link to="/index" style="text-decoration: none;">Contact
                                                         Us</router-link></li>
@@ -45,10 +36,6 @@
                                 <div class="header-right-btn f-right  ml-15">
                                     <router-link to="/index" style="text-decoration: none;" class="btn_1 header-btn"><i
                                             class="fas fa-heart"></i>Make a Donation</router-link>
-                                </div>
-                                <!-- Mobile Menu -->
-                                <div class="col-12">
-                                    <div class="mobile_menu d-block d-lg-none"></div>
                                 </div>
                             </div>
                         </div>
@@ -179,7 +166,7 @@ export default {
         const outerthis = this
         axios({
             method: 'get',
-            url: 'http://121.5.128.97:9009/v1.1/sponsor-microservice/projects/RPInfo',
+            url: 'http://121.5.128.97:9009/v2.0/sponsor-microservice/projects/RPInfo',
             params: {
                 size: 3
             }
@@ -199,5 +186,7 @@ export default {
 <style scoped>
 @import '../assets/css/style.css';
 @import '../assets/css/mycss.css';
+@import '../assets/css/slicknav.css';
+@import '../assets/css/slick.css';
 @import '../assets/css/fontawesome-all.min.css';
 </style>

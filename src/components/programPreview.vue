@@ -38,12 +38,6 @@ export default {
       console.log('hello wold')
     }
   },
-  mounted() {
-    // 只显示50个字符
-    if (this.Describe.length > 50) {
-      this.Describe = this.Describe.slice(0, 50) + '......'
-    }
-  }
 }
 </script>
 
