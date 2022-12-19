@@ -66,6 +66,12 @@
               </div>
             </div>
           </div>
+          <div class="row">
+            <Notice :Notices=Notices />
+          </div>
+          <el-pagination background @current-change="pageChange" :page-size="5" :pager-count="9"
+            layout="prev, pager, next" :total=total>
+          </el-pagination>
         </div>
       </div>
     </main>
@@ -74,8 +80,61 @@
 
 
 <script>
+import axios from 'axios'
+import Notice from '../components/notice.vue'
 export default {
-  name: 'Notices'
+  name: 'Notices',
+  components: {
+    'Notice': Notice
+  },
+  data() {
+    return {
+      Notices: [],
+      total: 0
+    }
+  },
+  methods: {
+    pageChange: function (val) {
+      const outerthis = this
+      axios({
+        method: 'get',
+        url: 'http://121.5.128.97:9009/v2.0/sponsor-microservice/notice/followerId',
+        params: {
+          index: val,
+          pageSize: 5,
+          followerId: 1
+        }
+      }).then(function (response) {
+        outerthis.Notices = response.data.List
+        for (var i = 0; i < outerthis.Notices.length; i++) {
+          outerthis.Notices[i].subjectId = '/projects/' + outerthis.Notices[i].subjectId
+        }
+        outerthis.total = response.data.Total
+      }).catch(function (error) {
+        alert(error)
+      })
+    }
+  },
+  mounted() {
+    const outerthis = this
+    axios({
+      method: 'get',
+      url: 'http://121.5.128.97:9009/v2.0/sponsor-microservice/notice/followerId',
+      params: {
+        index: 1,
+        pageSize: 5,
+        followerId: 1
+      }
+    }).then(function (response) {
+      outerthis.Notices = response.data.List
+      for (var i = 0; i < outerthis.Notices.length; i++) {
+        outerthis.Notices[i].subjectId = '/projects/' + outerthis.Notices[i].subjectId
+      }
+      outerthis.total = response.data.Total
+    }).catch(function (error) {
+      alert(error)
+    })
+  }
 }
 </script>
 

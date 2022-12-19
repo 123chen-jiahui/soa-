@@ -56,7 +56,7 @@
                                             those who are in danger!</h1>
                                         <P class="animate__animated animate__fadeInUp animate__slow">When an animal gets
                                             access to survive, it can change just about everything.</P>
-                                        <router-link to="/index" style="text-decoration: none;"
+                                        <router-link to="/projects" style="text-decoration: none;"
                                             class="btn_1 hero-btn animate__animated animate__fadeInUp animate__slower">Ongoing
                                             Programs</router-link>
                                     </div>

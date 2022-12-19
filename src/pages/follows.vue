@@ -66,27 +66,102 @@
               </div>
             </div>
           </div>
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6" v-for="(item, index) in Projects" :key="index">
+              <FollowedProgramPrev :Id=item.id :ImgUrls=item.picPaths :Describe=item.describe
+                :ProjectName=item.projectName :Organization=item.organization />
+            </div>
+            <el-pagination background @current-change="pageChange" :page-size="4" :pager-count="9"
+              layout="prev, pager, next" :total=total>
+            </el-pagination>
+          </div>
         </div>
       </div>
     </main>
+    <footer>
+      <div class="footer-wrapper">
+        <div class="footer-bottom-area">
+          <div class="container">
+            <div class="footer-border">
+              <div class="row">
+                <div class="col-xl-12 ">
+                  <div class="footer-copy-right text-center">
+                    <p>Copyright &copy;2022 All rights reserved | This template is made with <i
+                        class="fa fa-heart color-danger" aria-hidden="true"></i> by <a href="https://colorlib.com"
+                        target="_blank" rel="nofollow noopener">Colorlib</a></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import ProgramPreview from '../components/programPreview.vue'
+import FollowedProgramPrev from '../components/followedProgramPrev.vue'
 export default {
   name: 'Follows',
+  components: {
+    'ProgramPreview': ProgramPreview,
+    'FollowedProgramPrev': FollowedProgramPrev,
+  },
+  data() {
+    return {
+      Projects: [],
+      total: 0,
+    }
+  },
+  methods: {
+    pageChange: function (val) {
+      const outerthis = this
+      axios({
+        method: 'get',
+        url: 'http://121.5.128.97:9009/v2.0/sponsor-microservice/projects/page',
+        params: {
+          index: val,
+          pageSize: 4
+        }
+      }).then(function (response) {
+        outerthis.Projects = response.data.content
+        // 修改id，便于页面跳转
+        for (var i = 0; i < outerthis.Projects.length; i++) {
+          if (outerthis.Projects[i].describe.length > 50) {
+            outerthis.Projects[i].describe = outerthis.Projects[i].describe.slice(0, 50) + '......'
+          }
+          outerthis.Projects[i].id = '/projects/' + outerthis.Projects[i].id
+        }
+      }).catch(function (error) {
+        alert(error)
+      })
+    }
+  },
   mounted() {
     console.log('寄')
+    const outerthis = this
     axios({
       method: 'get',
-      url: 'http://121.5.128.97:9009/v2.0/sponsor-microservice/projects/RPInfo',
+      url: 'http://121.5.128.97:9009/v2.0/sponsor-microservice/projects/followerId',
       params: {
-        id: '1'
+        index: 1,
+        pageSize: 4,
+        followerId: '1'
       }
-    }).then(function(response) {
+    }).then(function (response) {
       console.log(response)
-    }).catch(function(error) {
+      outerthis.Projects = response.data.List
+      for (var i = 0; i < outerthis.Projects.length; i++) {
+        if (outerthis.Projects[i].describe.length > 50) {
+          outerthis.Projects[i].describe = outerthis.Projects[i].describe.slice(0, 50) + '......'
+        }
+        outerthis.Projects[i].id = '/projects/' + outerthis.Projects[i].id
+      }
+      outerthis.total = parseInt(response.data.Total)
+    }).catch(function (error) {
       alert(error)
     })
   }
