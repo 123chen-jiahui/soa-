@@ -146,6 +146,7 @@ export default {
     }).then(function(response) {
       outerthis.feedbacks = response.data.List
       outerthis.total = response.data.Total
+      console.log(response.data)
     }).catch(function(error) {
       console.log(error)
     })

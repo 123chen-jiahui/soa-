@@ -146,6 +146,10 @@ export default {
 
       data: {},
       centerDialogVisible: false,
+
+      day: 0,
+
+      orderId: ''
     }
   },
   methods: {
@@ -163,22 +167,75 @@ export default {
         alert(error)
       })
     },
-    sponsor: function() {
-      // 待定，等后端
-
+    async creatOrder() {
       // 获取子组件的参数
       var total = this.$refs.total.total
       var monthChosen = this.$refs.total.monthChosen
-      var day
       if (monthChosen == 12) {
-        day = 365
+        this.day = 365
       } else if (monthChosen == 6) {
-        day = 183
+        this.day = 183
       } else {
-        day = 31
+        this.day = 31
       }
-      console.log(total, monthChosen, day)
+      console.log(total, monthChosen, this.day)
+
+      const outerthis = this
+      var res = await axios({
+        method: 'post',
+        url: 'http://121.5.128.97:9009/v2.0/sponsor-microservice/order',
+        params: {
+          sponsorId: 1,
+          subjectId: this.id,
+          amount: total,
+          SponsorshipPeriod: this.day
+        }
+      }).then(function(response) {
+        console.log(response.data)
+        outerthis.orderId = response.data
+      }).catch(function(error) {
+        alert('创建订单失败', error)
+      })
+      return res
+    },
+    async changeOrderState() {
+      var res = await axios({
+        method: 'put',
+        url: 'http://121.5.128.97:9009/v2.0/sponsor-microservice/order',
+        params: {
+          orderId: this.orderId
+        }
+      }).then(function(response) {
+        console.log(response)
+      }).catch(function(error) {
+        alert(error)
+      })
+      return res
+    },
+    async createSponsorShip() {
+      var res = axios({
+        method: 'post',
+        url: 'http://121.5.128.97:9009/v2.0/sponsor-microservice/sponsorship',
+        params: {
+          orderId: this.orderId,
+          days: this.day
+        }
+      }).then(function(response) {
+        console.log(response)
+      }).catch(function(error) {
+        alert(error)
+      })
+      return res
+    },
+    async sponsor() {
+      // 待定，等后端
+      // 生成订单
+      const x = await this.creatOrder()
+      const y = await this.changeOrderState()
+      // const y = await this.changeOrderState()
+      const z = await this.createSponsorShip()
       this.centerDialogVisible = false
+      alert('赞助成功，感谢您的赞助')
     }
   },
   mounted() {
