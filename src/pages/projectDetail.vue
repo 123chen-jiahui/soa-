@@ -70,11 +70,20 @@
                 </el-carousel-item>
               </el-carousel>
 
+              <!-- 赞助面板 -->
               <el-dialog :visible.sync="centerDialogVisible" width="35%" center>
                 <Donate ref="total" :monthFee=Detail.monthFee />
                 <span slot="footer" class="dialog-footer">
                   <el-button @click="centerDialogVisible = false">Cancle</el-button>
                   <el-button type="primary" @click="sponsor()">Donate</el-button>
+                </span>
+              </el-dialog>
+
+              <el-dialog :visible.sync="reportBoardVisible" width="35%" center>
+                <ReportBoard ref="content" />
+                <span slot="footer" class="dialog-footer">
+                  <el-button @click="reportBoardVisible = false">Cancle</el-button>
+                  <el-button type="primary" @click="submitReport">Submit</el-button>
                 </span>
               </el-dialog>
 
@@ -89,7 +98,9 @@
                   <div class="double-btn d-flex flex-wrap">
                     <div class="btn_01 mr-15" @click="centerDialogVisible = true">Donate
                       Now</div>
-                    <div class="border-btn" @click="follow()">follow</div>
+                    <div class="border-btn" @click="follow()">follow</div>&nbsp;&nbsp;&nbsp;
+                    <button class="button rounded-0 primary-bg btn_1 boxed-btn" type="submit"
+                      @click="reportBoardVisible = true">Report</button>
                     <!-- <router-link to="/index" style="text-decoration: none;" class="border-btn">Follow</router-link> -->
                   </div>
                 </div>
@@ -103,25 +114,24 @@
       </section>
     </main>
     <footer>
-            <div class="footer-wrapper">
-                <div class="footer-bottom-area">
-                    <div class="container">
-                        <div class="footer-border">
-                            <div class="row">
-                                <div class="col-xl-12 ">
-                                    <div class="footer-copy-right text-center">
-                                        <p>Copyright &copy;2022 All rights reserved | This template is made with <i
-                                                class="fa fa-heart color-danger" aria-hidden="true"></i> by <a
-                                                href="https://colorlib.com" target="_blank"
-                                                rel="nofollow noopener">Colorlib</a></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+      <div class="footer-wrapper">
+        <div class="footer-bottom-area">
+          <div class="container">
+            <div class="footer-border">
+              <div class="row">
+                <div class="col-xl-12 ">
+                  <div class="footer-copy-right text-center">
+                    <p>Copyright &copy;2022 All rights reserved | This template is made with <i
+                        class="fa fa-heart color-danger" aria-hidden="true"></i> by <a href="https://colorlib.com"
+                        target="_blank" rel="nofollow noopener">Colorlib</a></p>
+                  </div>
                 </div>
+              </div>
             </div>
-        </footer>
+          </div>
+        </div>
+      </div>
+    </footer>
   </div>
 </template>
 
@@ -131,12 +141,14 @@ import axios from 'axios'
 import ProgramPreview from '../components/programPreview.vue'
 import Announcement from '../components/announcement.vue'
 import Donate from '../components/donate.vue'
+import ReportBoard from '../components/reportBoard.vue'
 export default {
   name: 'ProjectDetail',
   components: {
     'ProgramPreview': ProgramPreview,
     'Announcement': Announcement,
-    'Donate': Donate
+    'Donate': Donate,
+    'ReportBoard': ReportBoard
   },
   data() {
     return {
@@ -146,6 +158,7 @@ export default {
 
       data: {},
       centerDialogVisible: false,
+      reportBoardVisible: false,
 
       day: 0,
 
@@ -153,7 +166,7 @@ export default {
     }
   },
   methods: {
-    follow: function() {
+    follow: function () {
       axios({
         method: 'post',
         url: 'http://121.5.128.97:9009/v2.0/sponsor-microservice/follow/add',
@@ -161,9 +174,9 @@ export default {
           subjectId: this.id,
           followerId: '1' // 这里不应该写死，等身份验证出来以后再改
         }
-      }).then(function() {
+      }).then(function () {
         alert('关注成功')
-      }).catch(function(error) {
+      }).catch(function (error) {
         alert(error)
       })
     },
@@ -190,10 +203,10 @@ export default {
           amount: total,
           SponsorshipPeriod: this.day
         }
-      }).then(function(response) {
+      }).then(function (response) {
         console.log(response.data)
         outerthis.orderId = response.data
-      }).catch(function(error) {
+      }).catch(function (error) {
         alert('创建订单失败', error)
       })
       return res
@@ -205,9 +218,9 @@ export default {
         params: {
           orderId: this.orderId
         }
-      }).then(function(response) {
+      }).then(function (response) {
         console.log(response)
-      }).catch(function(error) {
+      }).catch(function (error) {
         alert(error)
       })
       return res
@@ -220,9 +233,9 @@ export default {
           orderId: this.orderId,
           days: this.day
         }
-      }).then(function(response) {
+      }).then(function (response) {
         console.log(response)
-      }).catch(function(error) {
+      }).catch(function (error) {
         alert(error)
       })
       return res
@@ -236,6 +249,13 @@ export default {
       const z = await this.createSponsorShip()
       this.centerDialogVisible = false
       alert('赞助成功，感谢您的赞助')
+    },
+
+    submitReport() {
+      var text = this.$refs.content.textarea
+      console.log(text)
+      this.reportBoardVisible = false
+      // 调用api
     }
   },
   mounted() {
@@ -250,11 +270,11 @@ export default {
       params: {
         id: this.id
       }
-    }).then(function(response) {
+    }).then(function (response) {
       console.log(response)
       outerthis.Detail = response.data
       outerthis.Announcements = response.data.notice
-    }).catch(function(error) {
+    }).catch(function (error) {
       alert(error)
     })
   }
