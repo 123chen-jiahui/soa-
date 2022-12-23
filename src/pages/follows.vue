@@ -127,7 +127,7 @@ export default {
           pageSize: 4
         }
       }).then(function (response) {
-        outerthis.Projects = response.data.content
+        outerthis.Projects = response.data.List
         // 修改id，便于页面跳转
         for (var i = 0; i < outerthis.Projects.length; i++) {
           if (outerthis.Projects[i].describe.length > 50) {

@@ -125,7 +125,8 @@ export default {
           pageSize: 4
         }
       }).then(function (response) {
-        outerthis.Projects = response.data.content
+        console.log(response.data)
+        outerthis.Projects = response.data.List
         // 修改id，便于页面跳转
         for (var i = 0; i < outerthis.Projects.length; i++) {
           if (outerthis.Projects[i].describe.length > 50) {
@@ -153,7 +154,7 @@ export default {
       }
     }).then(function (response) {
       console.log(response.data)
-      outerthis.Projects = response.data.content
+      outerthis.Projects = response.data.List
       // 修改id，便于页面跳转
       for (var i = 0; i < outerthis.Projects.length; i++) {
         if (outerthis.Projects[i].describe.length > 50) {
@@ -161,7 +162,7 @@ export default {
         }
         outerthis.Projects[i].id = '/projects/' + outerthis.Projects[i].id
       }
-      outerthis.total = response.data.totalElements
+      outerthis.total = parseInt(response.data.Total)
     }).catch(function (error) {
       console.log(error)
     })
