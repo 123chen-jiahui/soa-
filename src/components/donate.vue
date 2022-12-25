@@ -58,7 +58,12 @@ export default {
 </script>
 
 
-<style scoped>
+<!-- <style scoped>
 @import '../assets/css/style.css';
 @import '../assets/css/style2.css';
+</style> -->
+
+<style scoped src="../assets/css/style.css">
+</style>
+<style scoped src="../assets/css/style2.css">
 </style>

@@ -42,11 +42,13 @@ export default {
     },
     unfollow() {
       console.log(this.Id.substring(10))
+      var followerId = localStorage.getItem('id')
       axios({
         method: 'delete',
         url: 'http://121.5.128.97:9009/v2.0/sponsor-microservice/follow',
         params: {
-          followerId: 1,
+          // followerId: 1,
+          followerId: followerId,
           subjectId: this.Id.substring(10)
         }
       }).then(function(response) {
@@ -60,6 +62,10 @@ export default {
 }
 </script>
 
-<style scoped>
+<!-- <style scoped>
 @import '../assets/css/style.css';
+</style> -->
+
+
+<style scoped src="../assets/css/style.css">
 </style>

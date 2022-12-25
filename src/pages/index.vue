@@ -1,5 +1,6 @@
 <template>
     <div>
+        <!-- <iframe id="myIframe" src="http://118.31.108.144:8023/test/index.html" style="display: none" ></iframe> -->
         <header>
             <div class="header-area header-transparent">
                 <div class="main-header ">
@@ -79,6 +80,9 @@
                     </div>
                 </div>
             </section>
+            <!-- <button @click="jump">寄了</button> -->
+            <!-- <router-link to="http://118.31.108.144:8023/TJChatRoomClient/login.html">寄</router-link>
+            <a href="http://118.31.108.144:8023/TJChatRoomClient/login.html">寄</a> -->
             <div class="our-services-area section-img-bg section-padding xx">
                 <div class="container">
                     <div class="row justify-content-center mb-25">
@@ -152,6 +156,7 @@
 import "animate.css";
 import ProgramPreview from '../components/programPreview.vue'
 import axios from 'axios';
+import qs from 'qs'
 export default {
     name: 'Index',
     components: {
@@ -162,7 +167,50 @@ export default {
             Projects: []
         }
     },
+    methods: {
+        // 无用函数
+        jump() {
+            var myIframe = document.getElementById('myIframe');
+            console.log('寄寄')
+            if (myIframe) {
+                console.log('寄')
+                var data = { data: 1 };
+                myIframe.contentWindow.postMessage(JSON.stringify(data), 'http://118.31.108.144:8023/TJChatRoomClient/login.html');
+                // alert('未登录账户，请登录！')
+                window.open('http://118.31.108.144:8023/test/index.html', '_self')
+            }
+        },
+        // 无用函数
+        login() {
+            axios({
+                method: 'get',
+                url: 'http://121.5.128.97:9009/v2.0/sponsor-microservice/login',
+                params: {
+                    name: `Lebron's_fans_number_9`,
+                    password: 'password_'
+                }
+            }).then(function (response) {
+                console.log(response.data)
+            }).catch(function (error) {
+                console.log(error.response.data)
+            })
+        }
+    },
     mounted() {
+        var aData = localStorage.getItem("iid");
+        if (aData) {
+            console.log('1', aData);     // 当能获取到数据时就说明是从A页面跳转过来的
+            localStorage.removeItem("iid");
+            localStorage.setItem('id', aData)
+        } else {
+            window.addEventListener("message", receiveMessage, false);
+        }
+        function receiveMessage(event) {
+            if (event.data && typeof(event.data) == 'string' && event.data.substr(0,7) != 'webpack') {
+                localStorage.setItem("id", event.data.replace(/\"/g, ""));
+            }
+        }
+
         const outerthis = this
         axios({
             method: 'get',
@@ -186,10 +234,31 @@ export default {
     }
 }
 </script>
-<style scoped>
+
+
+<!-- <style scoped>
 @import '../assets/css/style.css';
 @import '../assets/css/mycss.css';
 @import '../assets/css/slicknav.css';
 @import '../assets/css/slick.css';
 @import '../assets/css/fontawesome-all.min.css';
+</style> -->
+
+<style scoped src="../assets/css/style.css">
+
+</style>
+<style scoped src="../assets/css/mycss.css">
+
+</style>
+<style scoped src="../assets/css/slicknav.css">
+
+</style>
+<style scoped src="../assets/css/slick.css">
+
+</style>
+<style scoped src="../assets/css/fontawesome-all.min.css">
+
+</style>
+<style scoped src="../assets/css/style2.css">
+
 </style>

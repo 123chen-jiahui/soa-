@@ -117,14 +117,20 @@ export default {
     }
   },
   methods: {
+    // 这里似乎是一个bug，待改
+    // 已改
     pageChange: function (val) {
       const outerthis = this
+      var followerId = localStorage.getItem('id')
       axios({
         method: 'get',
-        url: 'http://121.5.128.97:9009/v2.0/sponsor-microservice/projects/page',
+        // url: 'http://121.5.128.97:9009/v2.0/sponsor-microservice/projects/page',
+        url: 'http://121.5.128.97:9009/v2.0/sponsor-microservice/projects/followerId',
         params: {
           index: val,
-          pageSize: 4
+          pageSize: 4,
+          // 下面这行是新增的
+          followerId: followerId
         }
       }).then(function (response) {
         outerthis.Projects = response.data.List
@@ -143,13 +149,16 @@ export default {
   mounted() {
     console.log('寄')
     const outerthis = this
+    var followerId = localStorage.getItem('id')
+    console.log(followerId.length)
     axios({
       method: 'get',
       url: 'http://121.5.128.97:9009/v2.0/sponsor-microservice/projects/followerId',
       params: {
         index: 1,
         pageSize: 4,
-        followerId: '1'
+        // followerId: '1',
+        followerId: followerId
       }
     }).then(function (response) {
       console.log(response)
@@ -169,6 +178,11 @@ export default {
 </script>
 
 
-<style scoped>
+<!-- <style scoped>
 @import '../assets/css/style.css';
+</style> -->
+
+<style scoped src="../assets/css/style.css">
+</style>
+<style scoped src="../assets/css/mycss.css">
 </style>

@@ -62,6 +62,9 @@ export default {
 }
 </script>
 
-<style scoped>
+<!-- <style scoped>
 @import '../assets/css/style.css';
+</style> -->
+
+<style scoped src="../assets/css/style.css">
 </style>

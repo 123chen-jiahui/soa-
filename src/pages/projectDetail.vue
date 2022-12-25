@@ -167,12 +167,14 @@ export default {
   },
   methods: {
     follow: function () {
+      var followerId = localStorage.getItem('id')
       axios({
         method: 'post',
         url: 'http://121.5.128.97:9009/v2.0/sponsor-microservice/follow/add',
         params: {
           subjectId: this.id,
-          followerId: '1' // 这里不应该写死，等身份验证出来以后再改
+          // followerId: '1' // 这里不应该写死，等身份验证出来以后再改
+          followerId: followerId
         }
       }).then(function () {
         alert('关注成功')
@@ -194,11 +196,13 @@ export default {
       console.log(total, monthChosen, this.day)
 
       const outerthis = this
+      var sponsorId = localStorage.getItem('id')
       var res = await axios({
         method: 'post',
         url: 'http://121.5.128.97:9009/v2.0/sponsor-microservice/order',
         params: {
-          sponsorId: 1,
+          // sponsorId: 1,
+          sponsorId: sponsorId,
           subjectId: this.id,
           amount: total,
           SponsorshipPeriod: this.day
@@ -255,7 +259,23 @@ export default {
       var text = this.$refs.content.textarea
       console.log(text)
       this.reportBoardVisible = false
+
+      var sponsorId = localStorage.getItem('id')
       // 调用api
+      axios({
+        method: 'post',
+        url: 'http://121.5.128.97:9009/v2.0/sponsor-microservice/complaints',
+        params: {
+          // sponsorId: 1,
+          sponsorId: sponsorId,
+          subjectId: this.id,
+          content: text
+        }
+      }).then(function() {
+        alert('投诉成功！请等待管理员审核')
+      }).catch(function(error) {
+        alert('投诉失败！', error)
+      })
     }
   },
   mounted() {
@@ -282,7 +302,12 @@ export default {
 </script>
 
 
-<style scoped>
+<!-- <style scoped>
 @import '../assets/css/style2.css';
 @import '../assets/css/style.css';
+</style> -->
+
+<style scoped src="../assets/css/style.css">
+</style>
+<style scoped src="../assets/css/style2.css">
 </style>

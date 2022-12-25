@@ -170,6 +170,9 @@ export default {
 }
 </script>
 
-<style scoped>
+<!-- <style scoped>
 
+</style> -->
+
+<style scoped src="../assets/css/style.css">
 </style>

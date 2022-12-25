@@ -117,13 +117,15 @@ export default {
   },
   mounted() {
     const outerthis = this
+    var followerId = localStorage.getItem('id')
     axios({
       method: 'get',
       url: 'http://121.5.128.97:9009/v2.0/sponsor-microservice/notice/followerId',
       params: {
         index: 1,
         pageSize: 5,
-        followerId: 1
+        // followerId: 1
+        followerId: followerId
       }
     }).then(function (response) {
       outerthis.Notices = response.data.List
@@ -139,6 +141,11 @@ export default {
 </script>
 
 
-<style scoped>
+<!-- <style scoped>
 @import '../assets/css/style.css';
+</style> -->
+
+<style scoped src="../assets/css/style.css">
+</style>
+<style scoped src="../assets/css/mycss.css">
 </style>

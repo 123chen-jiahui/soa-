@@ -134,6 +134,7 @@ export default {
   },
   mounted() {
     const outerthis = this
+    var sponsorId = localStorage.getItem('id')
     axios({
       method: 'get',
       // url: '/processmanagement-microservice/processmanagement/feedback/all'
@@ -141,7 +142,8 @@ export default {
       params: {
         index: 1,
         pageSize: 4,
-        sponsorId: '1' // 这里不应该写死，等身份验证出来以后再改
+        // sponsorId: '1' // 这里不应该写死，等身份验证出来以后再改
+        sponsorId: sponsorId
       }
     }).then(function(response) {
       outerthis.feedbacks = response.data.List
@@ -154,6 +156,11 @@ export default {
 }
 </script>
 
-<style scoped>
-@import '../assets/css/style.css'
+<!-- <style scoped>
+@import '../assets/css/style.css';
+</style> -->
+
+<style scoped src="../assets/css/style.css">
+</style>
+<style scoped src="../assets/css/mycss.css">
 </style>
